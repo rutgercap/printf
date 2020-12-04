@@ -1,18 +1,19 @@
 NAME		=	libftprintf.a
 
-SRCS		=	ft_printf.c
+SRCS		=	ft_printf.c\
+				arghandlers.c
 SRC_OBJS	=	$(SRCS:.c=.o)
 
 HEADER		=	ft_printf.h 
 
-LIBFT		=	../libft/libft.a	## weghalen?
+LIBFT		=	/libft/libft.a	## weghalen? ## check hoe deze makefile checkt of libft up to date is
 
-ar			=	ar -rcs
+AR			=	ar -rcs
 
 ifdef WITH_SAN
 CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
 else
-CFLAGS		= 	-Wall -Werror -Wextra
+CFLAGS		= 	-Wall -Wextra #Werror
 endif
 
 all:		$(NAME)
@@ -25,10 +26,13 @@ $(NAME):	$(SRC_OBJS)
 clean:
 	rm -f $(OBJ_FILES) $(TEST_FILE)
 
+san:
+	$(MAKE) WITH_SAN=1 all
+
 fclean: clean
 	rm -f $(NAME)
 
 re:	fclean all
 
 phony:
-	libft all
+	all clean fclean re
