@@ -6,11 +6,10 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/01 12:22:19 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/04 15:36:11 by rcappend      ########   odam.nl         */
+/*   Updated: 2020/12/05 12:48:23 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/src/libft.h"
 #include "ft_printf.h"
 
 size_t		normal_text(char **output, const char *str)
@@ -33,12 +32,10 @@ size_t		normal_text(char **output, const char *str)
 
 size_t		special_character(char **output, const char *str, va_list args)
 {
-	char		*argv;
 	size_t		i;
+	Flags		c;	
 
-	str += 1;
-	printf("%c\n", *str);
-	argv = arg_to_ascii(*str + 1, args);
+	i = 0;
 	// if (*argv)
 	return (2);
 }

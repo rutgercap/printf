@@ -6,35 +6,36 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/04 15:01:13 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/04 15:22:18 by rcappend      ########   odam.nl         */
+/*   Updated: 2020/12/05 14:12:50 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/src/libft.h"
 #include "ft_printf.h"
 
-char	*arg_to_ascii(char c, va_list args)
+int		flag_reader(Flags *c, char *str, va_list args)
 {
-	char	*ret;
+	size_t	i;
+	char	*types;
 
-	ret = NULL;
-	if (c == '%')
+	types = "cspdiuxX%";
+	i = 0;
+	c->align = (str[i] == '-') ? TRUE : FALSE;
+	if (str[i] == '-')
+		i++;
+	if (str[i] == ' ' || str[i] == 0)
+		c->space = str[i]; 
+	if (ft_isdigit(str[i]) || str[i] == '*')			// implement *
+		c->width = (str[i] == '*') ? args : ft_atoi(*str + i);
+	while(ft_isdigit(str[i]))
+		i++;
+	if (str[i] == '.')
 	{
-		ret = malloc(1);
-		if (*ret)
-			ret[0] = '%';
+		i++;
+		c->prec = (str[i] == '*') ? args : ft_atoi(*str + i);
 	}
-	// else if (c == 'i')
-	// 	ret = integer(args);
-	// else if (c == 's')
-	// 	ret = string(args);
-	// else if (c == 'c')
-	// 	ret = character(args);
-	// else if (c == 'p')
-	// 	ret = pointer(args);
-	// else if (c == 'd')
-	// 	ret = digit(args);
-	// else if (c == 'x' || c == 'X')
-	// 	ret = hexa(args, c);
-	return (ret);
+	while(ft_isdigit(str[i]))
+		i++;
+	if (ft_strchr(types, str[i]) != NULL)
+		return (i);
+	return (0);
 }
