@@ -6,7 +6,7 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 10:32:16 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/11/15 10:11:56 by rcappend      ########   odam.nl         */
+/*   Updated: 2020/12/10 12:00:16 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,7 @@ int					ft_isspace(int c);
 int					ft_abs(int i);
 
 size_t				ft_strnlen(const char *s, size_t maxlen);
+
+char				*ft_itoa_base(unsigned int n, char *base);
 
 #	endif

@@ -6,7 +6,7 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/01 12:22:19 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/05 12:48:23 by rcappend      ########   odam.nl         */
+/*   Updated: 2020/12/10 13:54:00 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,19 @@ size_t		normal_text(char **output, const char *str)
 size_t		special_character(char **output, const char *str, va_list args)
 {
 	size_t		i;
-	Flags		c;	
+	int			error;
+	t_track		c;
 
-	i = 0;
-	// if (*argv)
-	return (2);
+	t_track_init(&c);
+	i = flaghandler(&c, str, args);
+	if (!i)
+		return (0);
+	error = value_converter(args, &c);
+	if (error)
+		return (0);
+	error = value_formatter(&c);
+
+	return (i);
 }
 
 char	*string_parser(const char *str, va_list args)
@@ -46,9 +54,10 @@ char	*string_parser(const char *str, va_list args)
 	size_t		i;
 
 	output = ft_calloc(1,1);
+	if (!output)
+		return (NULL);
 	while (*str)
 	{
-		i = 0;
 		if (*str != '%')
 			i = normal_text(&output, str);
 		else
@@ -63,7 +72,6 @@ char	*string_parser(const char *str, va_list args)
 	return (output);
 }
 
-
 void	ft_printf(const char *str, ...)
 {
 	va_list		args;
@@ -75,5 +83,6 @@ void	ft_printf(const char *str, ...)
 	output = string_parser(str, args);
 	va_end(args);
 	ft_putstr_fd(output, 1);
-	free(output);
+	if (output)
+		free(output);
 }

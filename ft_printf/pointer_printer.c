@@ -1,27 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strnlen.c                                       :+:    :+:            */
+/*   pointer_printer.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/15 10:11:12 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/07 11:25:58 by rcappend      ########   odam.nl         */
+/*   Created: 2020/12/10 12:06:10 by rcappend      #+#    #+#                 */
+/*   Updated: 2020/12/10 12:34:05 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "ft_printf.h"
 
-size_t	ft_strnlen(const char *s, size_t maxlen)
+static int	counter(unsigned int n)
 {
-	size_t	i;
+	int		i;
 
-	i = 0;
-	while (*s && maxlen > 0)
+	i = 1;
+	while (n / 16 != 0)
 	{
-		s++;
 		i++;
-		maxlen--;
+		n = n / 16;
 	}
 	return (i);
+}
+
+char		*ft_itoa_ptr(unsigned long long n)
+{
+	char	*ret;
+	int		len;
+	char	*base;
+
+	base = "0123456789abcdef";
+	len = counter(n);
+	ret = malloc(sizeof(unsigned char) * len + 1);
+	if (!ret)
+		return (NULL);
+	ret[len] = '\0';
+	while (len)
+	{
+		len--;
+		ret[len] = base[n % 16];
+		n = n / 16;
+	}
+	return (ret);
 }

@@ -1,7 +1,10 @@
 NAME		=	libftprintf.a
 
 SRCS		=	ft_printf.c\
-				arghandlers.c
+				flaghandlers.c\
+				conversions.c\
+				pointer_printer.c\
+				formatting.c
 SRC_OBJS	=	$(SRCS:.c=.o)
 
 HEADER		=	ft_printf.h 
@@ -13,7 +16,7 @@ AR			=	ar -rcs
 ifdef WITH_SAN
 CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
 else
-CFLAGS		= 	-Wall -Wextra #Werror
+CFLAGS		= 	-Wall -Wextra -g -fsanitize=address #Werror
 endif
 
 all:		$(NAME)

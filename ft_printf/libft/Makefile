@@ -36,7 +36,8 @@ SRCS 		=	src/ft_atoi.c\
 				src/ft_isspace.c\
 				src/ft_putendl_fd.c\
 				src/ft_abs.c\
-				src/ft_strnlen.c
+				src/ft_strnlen.c\
+				src/ft_itoa_base.c
 SRC_OBJS	=	$(SRCS:.c=.o)
 
 HEADER		= 	src/libft.h
@@ -46,7 +47,7 @@ AR			=	ar -rcs
 ifdef WITH_SAN
 CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
 else
-CFLAGS		= 	-Wall -Werror -Wextra
+CFLAGS		= 	-Wall -Werror -Wextra -g
 endif
 
 all:		$(NAME)
