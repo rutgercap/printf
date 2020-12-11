@@ -6,7 +6,7 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/07 11:48:33 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/10 12:11:07 by rcappend      ########   odam.nl         */
+/*   Updated: 2020/12/11 16:40:41 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		string_converter(va_list args, t_track *c)
 	return (EXIT_SUCCESS);
 }
 
-static int 	int_converter(va_list args, t_track *c)
+static int		int_converter(va_list args, t_track *c)
 {
 	c->value = ft_itoa(va_arg(args, int));
 	if (!c->value)
@@ -37,13 +37,13 @@ static int		uns_int_converter(va_list args, t_track *c)
 
 	temp = va_arg(args, unsigned int);
 	if (c->type == 'u')
-		c->value = ft_itoa((unsigned long)temp);
+		c->value = ft_itoa_base(temp, "0123456789");
 	else if (c->type == 'x')
 		c->value = ft_itoa_base(temp, "0123456789abcdef");
-	else 
+	else
 		c->value = ft_itoa_base(temp, "0123456789ABCDEF");
 	if (!c->value)
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -55,7 +55,7 @@ static int		pointer_converter(va_list args, t_track *c)
 	return (EXIT_SUCCESS);
 }
 
-int		value_converter(va_list args, t_track *c)
+int				value_converter(va_list args, t_track *c)
 {
 	int ret;
 
@@ -66,6 +66,7 @@ int		value_converter(va_list args, t_track *c)
 		if (!c->value)
 			return (EXIT_FAILURE);
 		c->value[0] = (c->type == 'c') ? va_arg(args, int) : '%';
+		ret = 0;
 	}
 	else if (c->type == 'i' || c->type == 'd')
 		ret = int_converter(args, c);
@@ -77,8 +78,3 @@ int		value_converter(va_list args, t_track *c)
 		ret = pointer_converter(args, c);
 	return (ret);
 }
-
-// xX%
-// i d u c s p 
-
-// b ft_printf.c:43

@@ -1,12 +1,11 @@
 NAME		=	output
 
 SRCS		=	main.c\
-				ft_printf/libftprintf.a\
-				ft_printf/libft/libft.a
+				ft_printf/libftprintf.a
 
 DEBUG_SRCS	=	main.c\
 				ft_printf/*.c\
-				ft_printf/libft/src/*.c\
+				ft_printf/libft/*.c\
 
 ifdef WITH_SAN
 CFLAGS		= 	-Wall -Wextra -fsanitize=address -g

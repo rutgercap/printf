@@ -3,37 +3,40 @@ NAME		=	libftprintf.a
 SRCS		=	ft_printf.c\
 				flaghandlers.c\
 				conversions.c\
-				pointer_printer.c\
-				formatting.c
+				formatting.c\
+				utilities.c
 SRC_OBJS	=	$(SRCS:.c=.o)
 
 HEADER		=	ft_printf.h 
 
-LIBFT		=	/libft/libft.a	## weghalen? ## check hoe deze makefile checkt of libft up to date is
+LIBFT		=	libft/libft.a	## weghalen? ## check hoe deze makefile checkt of libft up to date is
 
 AR			=	ar -rcs
 
-ifdef WITH_SAN
-CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
-else
-CFLAGS		= 	-Wall -Wextra -g -fsanitize=address #Werror
-endif
+CFLAGS		= 	-Wall -Wextra -Werror
+
 
 all:		$(NAME)
 $(NAME):	$(SRC_OBJS)
+			$(MAKE) -C libft
+			cp $(LIBFT) $(NAME)
 			$(AR) $(NAME) $(SRC_OBJS)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f $(OBJ_FILES) $(TEST_FILE)
+	rm -f $(SRC_OBJS)
 
 san:
 	$(MAKE) WITH_SAN=1 all
 
 fclean: clean
 	rm -f $(NAME)
+
+libft:
+		$(MAKE) -C libft
+		cp $(LIBFT) $(NAME)
 
 re:	fclean all
 
