@@ -13,5 +13,5 @@ Write a library that contains ft_print, a function that mimices the real printf
 ### Supported conversions:
 cspdiuxX%
 
-### Good to know
+### Good to know:
 A lot of basic functions are not allowed according to the 42 norm. 
