@@ -1,39 +1,41 @@
-NAME		=	output
+NAME		=	libftprintf.a
 
-SRCS		=	main.c\
-				ft_printf/libftprintf.a
+SRCS		=	ft_printf.c\
+				flaghandlers.c\
+				conversions.c\
+				formatting.c\
+				utilities.c
+SRC_OBJS	=	$(SRCS:.c=.o)
 
-DEBUG_SRCS	=	main.c\
-				ft_printf/*.c\
-				ft_printf/libft/*.c\
+HEADER		=	ft_printf.h 
 
-ifdef WITH_SAN
-CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
-else
-CFLAGS		= 	-Wall -Wextra -fsanitize=address -g
-endif
+LIBFT		=	libft/libft.a
 
-all:	libft printf
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
-	$(MAKE) run
+AR			=	ar -rcs
 
-debug:
-	$(CC) $(CFLAGS) $(DEBUG_SRCS) -o $(NAME)
-	lldb $(NAME)
+CFLAGS		= 	-Wall -Wextra -Werror
 
-run:
-	./$(NAME)
 
-re:
-	cd ft_printf/libft && make re
-	cd ft_printf/ && make re
-	rm $(NAME)
+all:		$(NAME)
+$(NAME):	$(SRC_OBJS)
+			$(MAKE) -C libft
+			cp $(LIBFT) $(NAME)
+			$(AR) $(NAME) $(SRC_OBJS)
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+clean:
+	rm -f $(SRC_OBJS)
+
+fclean: clean
+	rm -f $(NAME)
 
 libft:
-	cd ft_printf/libft && make
+		$(MAKE) -C libft
+		cp $(LIBFT) $(NAME)
 
-printf:
-	cd ft_printf/ && make
+re:	fclean all
 
-norm:
-	norminette -R CheckForbiddenSourceHeader
+phony:
+	all clean fclean re

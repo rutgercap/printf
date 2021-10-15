@@ -6,7 +6,7 @@
 /*   By: rcappend <rcappend@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/01 12:22:22 by rcappend      #+#    #+#                 */
-/*   Updated: 2020/12/11 16:48:05 by rcappend      ########   odam.nl         */
+/*   Updated: 2021/10/15 11:02:35 by rcappend      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <stdarg.h>
 
 #include "libft/libft.h"
-
-#include <stdio.h> // weghalen
 
 typedef	struct	s_track
 {
